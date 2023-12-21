@@ -31,13 +31,14 @@ export default function MyComponent({
 	return (
 		<div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-2 space-y-4">
 			<div className="text-center">Chat</div>
-			<div className="flex border w-[900px] rounded-md">
+			<div className="flex border min-w-[900px] rounded-md">
+				{/* All Chat */}
 				<div className="text-center border-r w-full">
 					<h1 className="p-2">All Chats</h1>
 					<div className="border">
-						<div className="flex flex-col gap-1">
+						<div className="flex flex-col max-h-96 overflow-auto">
 							{chats.map((chat, i) => (
-								<div className="flex flex-col gap-1 p-2" key={i}>
+								<div className="flex flex-col gap-1 px-2 py-1" key={i}>
 									<div className="text-sm w-full text-left">{chat.message}</div>
 									<div className="flex gap-1 justify-between">
 										<div className="text-xs text-gray-400">
@@ -69,7 +70,7 @@ export default function MyComponent({
 								</div>
 							))}
 						</div>
-						<div className="flex gap-2 p-2">
+						<div className="flex gap-2 p-2 border-t">
 							<input
 								type="text"
 								className="bg-transparent text-white w-full"
@@ -85,79 +86,95 @@ export default function MyComponent({
 						</div>
 					</div>
 				</div>
-				<div className="text-center border-x p-2 w-full">
-					<h1>Medium Chat</h1>
-					{chats
-						.filter((chat) => chat.votes >= upVotes1 && chat.votes < upVotes2)
-						.map((chat, i) => (
-							<div className="flex flex-col gap-1 p-2" key={i}>
-								<div className="text-sm w-full text-left">{chat.message}</div>
-								<div className="flex gap-1 justify-between">
-									<div className="text-xs text-gray-400">
-										Upvotes: {chat.votes}
+				{/* Medium Upvotes */}
+				<div className="text-center border-r w-full">
+					<h1 className="p-2">Medium Priority Chats</h1>
+					<div className="border-t">
+						<div className="flex flex-col max-h-96 overflow-auto">
+							{chats
+								.filter(
+									(chat) => chat.votes >= upVotes1 && chat.votes < upVotes2
+								)
+								.map((chat, i) => (
+									<div className="flex flex-col gap-1 p-2" key={i}>
+										<div className="text-sm w-full text-left">
+											{chat.message}
+										</div>
+										<div className="flex gap-1 justify-between">
+											<div className="text-xs text-gray-400">
+												Upvotes: {chat.votes}
+											</div>
+											<div className="flex gap-2">
+												<button
+													className="text-xs text-gray-400"
+													onClick={() => {
+														const newChats = [...chats];
+														newChats[i].votes++;
+														setChats(newChats);
+													}}
+												>
+													<ChevronUp />
+												</button>
+												<button
+													className="text-xs text-gray-400"
+													onClick={() => {
+														const newChats = [...chats];
+														newChats[i].votes--;
+														setChats(newChats);
+													}}
+												>
+													<ChevronDown />
+												</button>
+											</div>
+										</div>
 									</div>
-									<div className="flex gap-2">
-										<button
-											className="text-xs text-gray-400"
-											onClick={() => {
-												const newChats = [...chats];
-												newChats[i].votes++;
-												setChats(newChats);
-											}}
-										>
-											<ChevronUp />
-										</button>
-										<button
-											className="text-xs text-gray-400"
-											onClick={() => {
-												const newChats = [...chats];
-												newChats[i].votes--;
-												setChats(newChats);
-											}}
-										>
-											<ChevronDown />
-										</button>
-									</div>
-								</div>
-							</div>
-						))}
+								))}
+						</div>
+					</div>
 				</div>
-				<div className="text-center border-l p-2 w-full">
-					<h1>Important Chat</h1>
-					{chats
-						.filter((chat) => chat.votes >= upVotes2)
-						.map((chat, i) => (
-							<div className="flex flex-col gap-1 p-2" key={i}>
-								<div className="text-sm w-full text-left">{chat.message}</div>
-								<div className="flex gap-1 justify-between">
-									<div className="text-xs text-gray-400">
-										Upvotes: {chat.votes}
+				{/* High Upvotes */}
+				<div className="text-center border-r w-full">
+					<h1 className="p-2">High Priority Chats</h1>
+					<div className="border-t">
+						<div className="flex flex-col max-h-96 overflow-auto">
+							{chats
+								.filter((chat) => chat.votes >= upVotes2)
+								.map((chat, i) => (
+									<div className="flex flex-col gap-1 p-2" key={i}>
+										<div className="text-sm w-full text-left">
+											{chat.message}
+										</div>
+										<div className="flex gap-1 justify-between">
+											<div className="text-xs text-gray-400">
+												Upvotes: {chat.votes}
+											</div>
+											<div className="flex gap-2">
+												<button
+													className="text-xs text-gray-400"
+													onClick={() => {
+														const newChats = [...chats];
+														newChats[i].votes++;
+														setChats(newChats);
+													}}
+												>
+													<ChevronUp />
+												</button>
+												<button
+													className="text-xs text-gray-400"
+													onClick={() => {
+														const newChats = [...chats];
+														newChats[i].votes--;
+														setChats(newChats);
+													}}
+												>
+													<ChevronDown />
+												</button>
+											</div>
+										</div>
 									</div>
-									<div className="flex gap-2">
-										<button
-											className="text-xs text-gray-400"
-											onClick={() => {
-												const newChats = [...chats];
-												newChats[i].votes++;
-												setChats(newChats);
-											}}
-										>
-											<ChevronUp />
-										</button>
-										<button
-											className="text-xs text-gray-400"
-											onClick={() => {
-												const newChats = [...chats];
-												newChats[i].votes--;
-												setChats(newChats);
-											}}
-										>
-											<ChevronDown />
-										</button>
-									</div>
-								</div>
-							</div>
-						))}
+								))}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
