@@ -36,7 +36,7 @@ export default function MyComponent({
 				<div className="text-center border-r w-full">
 					<h1 className="p-2">All Chats</h1>
 					<div className="border">
-						<div className="flex flex-col max-h-96 overflow-auto">
+						<div className="flex flex-col max-h-96 overflow-auto min-h-96">
 							{chats.map((chat, i) => (
 								<div className="flex flex-col gap-1 px-2 py-1" key={i}>
 									<div className="text-sm w-full text-left">{chat.message}</div>
